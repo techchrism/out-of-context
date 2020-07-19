@@ -73,20 +73,11 @@
                 this.seedStr = seedStr || nanoid(5);
                 const random = seed(this.seedStr);
 
-                let sentence = randomElement(this.$dramaData.sentences, random);
-                for(let match of sentence.match(/\[.+?]/g))
-                {
-                    let prop = match.slice(1, -1);
-                    if(this.$dramaData.combinations.hasOwnProperty(prop))
-                    {
-                        sentence = sentence.replace(match, randomElement(this.$dramaData.combinations[prop], random));
-                    }
-                }
-                this.statement = sentence;
+                this.statement = randomElement(this.$store.getters.dataset, random);
                 if(!seedStr)
                 {
                     this.history.unshift({statement: sentence, seed: this.seedStr});
-                    if(this.history.length > 100)
+                    if(this.history.length > 10)
                     {
                         this.history.pop();
                     }
