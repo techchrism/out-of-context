@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import App from './App.vue';
 import Vuetify from 'vuetify/lib';
+import store from './store';
 import localforage from 'localforage';
 
 localforage.config({
@@ -24,6 +25,7 @@ Vue.use(Vuetify);
                 dark: theme !== 'light'
             }
         }),
+        store,
         render: function(h)
         {
             return h(App);

@@ -31,7 +31,8 @@
         methods: {
             copy()
             {
-                window.navigator.clipboard.writeText(this.description + ' - ' + this.value).then(() =>
+                window.navigator.clipboard.writeText((this.description ? this.description + ' - ' : '')
+                    + this.value).then(() =>
                 {
                     this.copyColor = 'success';
                 });

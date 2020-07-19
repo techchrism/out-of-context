@@ -14,10 +14,16 @@
         </v-app-bar>
 
         <v-main>
-            <v-container>
+            <v-container >
                 <v-row class="text-center">
                     <v-col cols="12">
-                        <random-generator/>
+                        <template v-if="$store.state.url.length > 0">
+                            <v-progress-circular indeterminate v-if="$store.state.loading"/>
+                            <random-generator v-else/>
+                        </template>
+                        <template v-else>
+                            <data-input/>
+                        </template>
                     </v-col>
                 </v-row>
             </v-container>
@@ -29,14 +35,16 @@
     import DarkSwitch from './components/DarkSwitch';
     import RandomGenerator from './components/RandomGenerator';
     import {LOAD_DATASET, SET_STARTING_SEED} from './store/mutation-types';
+    import DataInput from './components/DataInput';
 
     export default {
         name: 'App',
         components: {
+            DataInput,
             RandomGenerator,
             DarkSwitch
         },
-        created()
+        mounted()
         {
             const hash = window.location.hash.replace('#', '');
             if(hash.length > 0)
