@@ -91,6 +91,12 @@
             }
         },
         computed: {
+            hashData()
+            {
+                return {
+                    seed: this.seedStr,
+                }
+            },
             shareUrl()
             {
                 let url = new URL(window.location);

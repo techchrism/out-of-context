@@ -28,6 +28,7 @@
 <script>
     import DarkSwitch from './components/DarkSwitch';
     import RandomGenerator from './components/RandomGenerator';
+    import {LOAD_DATASET, SET_STARTING_SEED} from './store/mutation-types';
 
     export default {
         name: 'App',
@@ -35,5 +36,18 @@
             RandomGenerator,
             DarkSwitch
         },
+        created()
+        {
+            const hash = window.location.hash.replace('#', '');
+            if(hash.length > 0)
+            {
+                const hashData = JSON.parse(atob(hash));
+                if(hashData.seed)
+                {
+                    this.$store.commit(SET_STARTING_SEED, hashData.seed);
+                }
+                this.$store.dispatch(LOAD_DATASET, hashData.url);
+            }
+        }
     };
 </script>
