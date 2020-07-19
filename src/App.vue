@@ -52,7 +52,7 @@
                 const hashData = JSON.parse(atob(hash));
                 if(hashData.s)
                 {
-                    this.$store.commit(SET_STARTING_SEED, hashData.seed);
+                    this.$store.commit(SET_STARTING_SEED, hashData.s);
                 }
                 let url = hashData.u;
                 if(!url.startsWith('http'))
