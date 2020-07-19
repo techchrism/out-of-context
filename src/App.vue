@@ -50,11 +50,16 @@
             if(hash.length > 0)
             {
                 const hashData = JSON.parse(atob(hash));
-                if(hashData.seed)
+                if(hashData.s)
                 {
                     this.$store.commit(SET_STARTING_SEED, hashData.seed);
                 }
-                this.$store.dispatch(LOAD_DATASET, hashData.url);
+                let url = hashData.u;
+                if(!url.startsWith('http'))
+                {
+                    url = 'https://cors-anywhere.herokuapp.com/https://pastebin.com/raw/' + url;
+                }
+                this.$store.dispatch(LOAD_DATASET, url);
             }
         }
     };

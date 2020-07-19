@@ -94,8 +94,8 @@
             hashData()
             {
                 return {
-                    seed: this.seedStr,
-                    url: this.$store.state.url
+                    s: this.seedStr,
+                    u: this.$store.state.url.replace('https://cors-anywhere.herokuapp.com/https://pastebin.com/raw/', '')
                 };
             },
             shareUrl()

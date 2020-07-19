@@ -22,7 +22,7 @@
             {
                 let currentUrl = new URL(window.location);
                 currentUrl.hash = btoa(JSON.stringify({
-                    url: this.url
+                    u: this.url.replace('https://cors-anywhere.herokuapp.com/https://pastebin.com/raw/', '')
                 }));
                 return currentUrl.toString();
             }
