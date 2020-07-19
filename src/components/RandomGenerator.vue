@@ -16,7 +16,7 @@
                 </v-row>
                 <v-row justify="center">
                     <v-col class="col-12 col-md-5">
-                        <text-share :description="statement" :value="shareUrl" label="Link"/>
+                        <text-share :value="shareUrl" label="Link"/>
                     </v-col>
                 </v-row>
                 <v-row justify="center">
@@ -73,10 +73,10 @@
                 this.seedStr = seedStr || nanoid(5);
                 const random = seed(this.seedStr);
 
-                this.statement = randomElement(this.$store.getters.dataset, random);
+                this.statement = randomElement(this.$store.state.dataset, random);
                 if(!seedStr)
                 {
-                    this.history.unshift({statement: sentence, seed: this.seedStr});
+                    this.history.unshift({statement: this.statement, seed: this.seedStr});
                     if(this.history.length > 10)
                     {
                         this.history.pop();
@@ -95,12 +95,13 @@
             {
                 return {
                     seed: this.seedStr,
-                }
+                    url: this.$store.state.url
+                };
             },
             shareUrl()
             {
                 let url = new URL(window.location);
-                url.hash = this.seedStr;
+                url.hash = btoa(JSON.stringify(this.hashData));
                 return url.toString();
             }
         },
@@ -109,7 +110,7 @@
             localforage.getItem('history').then((historyData) =>
             {
                 this.history = historyData || [];
-                this.regenerate(window.location.hash.replace('#', ''));
+                this.regenerate(this.$store.state.startingSeed);
             });
         }
     };

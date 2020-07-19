@@ -11,12 +11,6 @@ export default new Vuex.Store({
         loading: false,
         startingSeed: ''
     },
-    getters: {
-        hasData(state)
-        {
-            return state.dataset.length === 0;
-        }
-    },
     mutations: {
         [SET_DATASET](state, dataset)
         {
